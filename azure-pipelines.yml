@@ -16,10 +16,6 @@ steps:
     SonarQube: 'SonarCloud'
     scannerMode: 'Other'
 
-- task: SonarQubeAnalyze@4
-- task: SonarQubePublish@4
-  inputs:
-    pollingTimeoutSec: '300'
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
@@ -28,5 +24,10 @@ steps:
     jdkVersionOption: '1.8'
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
+    sonarQubeRunAnalysis: true    
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
+
+- task: SonarQubePublish@4
+  inputs:
+    pollingTimeoutSec: '300'
